@@ -42,6 +42,19 @@ All commands are run from the root of the project, from a terminal:
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
 
+## Integrated React
+
+Integrated React into the SSR build and wired up a default layout plus component.
+
+- [astro.config.mjs:3](astro.config.mjs) imports @astrojs/react and registers the integration alongside the Node adapter so React islands can render in SSR.
+- [src/layouts/BaseLayout.astro:1](src\layouts\BaseLayout.astro) adds a reusable layout providing HTML scaffolding with configurable title/description and slot-based content.
+- [src/components/WelcomeBanner.jsx:1](src\components\WelcomeBanner.jsx) introduces an interactive React banner with a counter to validate client-side hydration.
+- [src/pages/index.astro:2](src\pages\index.astro) switches the homepage to use the new layout and mounts WelcomeBanner via client:load.
+
+> Tested with npm run build.
+>
+> Next steps: 1) npm run dev to start the SSR dev server.
+
 ## Template
 
 [materialize](https://www.mediafire.com/file/k2dg8p2e97wez94/materialize-1390.rar/file)
