@@ -1,4 +1,6 @@
 ---
+import "../scss/core.scss";
+
 import Head from "../layouts/base/LayoutHead";
 interface Props {
   title: string;
@@ -22,8 +24,6 @@ const {
 >
   <Head client:load description={description} title={title} />
   <body>
-    <main>
-      <slot />
-    </main>
+    <slot />
   </body>
 </html>

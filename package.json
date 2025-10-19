@@ -12,7 +12,11 @@
     "@astrojs/node": "^9.5.0",
     "@astrojs/react": "^4.4.0",
     "astro": "^5.14.6",
+    "bootstrap": "^5.3.8",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.93.2"
   }
 }
