@@ -20,11 +20,22 @@ function requiredParam(name) {
   throw new Error(`Parameter required${name ? `: \`${name}\`` : ''}`)
 }
 
+const DOC_EL = typeof document !== 'undefined' ? document.documentElement : null
+const getComputedStyleSafe =
+  typeof window !== 'undefined' && typeof window.getComputedStyle === 'function'
+    ? window.getComputedStyle.bind(window)
+    : null
+
+const getRootComputedStyle = () => (getComputedStyleSafe && DOC_EL ? getComputedStyleSafe(DOC_EL) : null)
+
 const Helpers = {
   // Root Element
-  ROOT_EL: typeof window !== 'undefined' ? document.documentElement : null,
+  ROOT_EL: DOC_EL,
 
-  prefix: getComputedStyle(document.documentElement).getPropertyValue('--prefix').trim(),
+  prefix: (() => {
+    const styles = getRootComputedStyle()
+    return styles ? styles.getPropertyValue('--prefix').trim() : ''
+  })(),
 
   // Large screens breakpoint
   LAYOUT_BREAKPOINT: 1200,
@@ -357,9 +368,11 @@ const Helpers = {
   // ---
   // Get animation duration of element
   _getAnimationDuration(el) {
-    const duration = window.getComputedStyle(el).transitionDuration
-
-    return parseFloat(duration) * (duration.indexOf('ms') !== -1 ? 1 : 1000)
+    const styles = getComputedStyleSafe ? getComputedStyleSafe(el) : null
+    const duration = styles?.transitionDuration ?? ''
+    const parsed = parseFloat(duration)
+    if (Number.isNaN(parsed)) return 0
+    return parsed * (duration.indexOf('ms') !== -1 ? 1 : 1000)
   },
 
   // ---
@@ -774,13 +787,13 @@ const Helpers = {
     }
 
     const yiq = (r * 299 + g * 587 + b * 114) / 1000
-    const ratio = getComputedStyle(document.documentElement).getPropertyValue('--bs-min-contrast-ratio').trim() * 100
-    const subtleRatio = getComputedStyle(document.documentElement)
-      .getPropertyValue('--bs-bg-label-tint-amount')
-      .trim('%')
-    const borderSubtleRatio = getComputedStyle(document.documentElement)
-      .getPropertyValue('--bs-border-subtle-amount')
-      .trim()
+    const rootStyles = getRootComputedStyle()
+    const ratio =
+      (rootStyles ? parseFloat(rootStyles.getPropertyValue('--bs-min-contrast-ratio').trim()) : 0) * 100
+    const subtleRatioRaw = rootStyles?.getPropertyValue('--bs-bg-label-tint-amount') ?? '0%'
+    const borderSubtleRatioRaw = rootStyles?.getPropertyValue('--bs-border-subtle-amount') ?? '0'
+    const subtleRatio = subtleRatioRaw.trim('%')
+    const borderSubtleRatio = borderSubtleRatioRaw.trim()
 
     // Calculate contrast color based on YIQ and ratio
     const contrastColor = yiq >= ratio ? '#000' : '#fff' // window.config.colors.black : window.config.colors.white
@@ -1261,10 +1274,13 @@ const Helpers = {
 
   // get css variables for theme colors
   getCssVar(color, isChartJs = false) {
+    const prefix =
+      (typeof window !== 'undefined' && window.Helpers ? window.Helpers.prefix : Helpers.prefix) || ''
     if (isChartJs === true) {
-      return getComputedStyle(document.documentElement).getPropertyValue(`--${window.Helpers.prefix}${color}`).trim()
+      const styles = getRootComputedStyle()
+      return styles ? styles.getPropertyValue(`--${prefix}${color}`).trim() : ''
     }
-    return `var(--${window.Helpers.prefix}${color})`
+    return `var(--${prefix}${color})`
   },
 
   // get maxlength count and display it for input and textarea
@@ -1302,8 +1318,8 @@ if (typeof window !== 'undefined') {
       Helpers.update()
       document.removeEventListener('DOMContentLoaded', onContentLoaded)
     })
+
+  window.Helpers = Helpers
 }
 
-// ---
-window.Helpers = Helpers
 export { Helpers }

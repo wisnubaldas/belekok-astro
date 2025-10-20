@@ -6,17 +6,31 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "css:build": "sass src/scss/core.scss public/assets/css/core.css --load-path=node_modules && node -e \"const fs=require('fs');const path=require('path');const dest=path.resolve('public/assets/vendor');fs.rmSync(dest,{recursive:true,force:true});fs.cpSync(path.resolve('src/vendor'),dest,{recursive:true});\""
   },
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.19.4",
+    "@algolia/autocomplete-theme-classic": "^1.19.4",
     "@astrojs/node": "^9.5.0",
     "@astrojs/react": "^4.4.0",
+    "@iconify/json": "^2.2.397",
+    "@iconify/tools": "^4.1.4",
+    "@iconify/types": "^2.0.0",
+    "@iconify/utils": "^3.0.2",
+    "@popperjs/core": "^2.11.8",
+    "@simonwep/pickr": "^1.9.1",
     "astro": "^5.14.6",
     "bootstrap": "^5.3.8",
+    "hammerjs": "^2.0.8",
+    "jquery": "^3.7.1",
+    "node-waves": "^0.7.6",
+    "perfect-scrollbar": "^1.5.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "sass": "^1.93.2",
     "sass-embedded": "^1.93.2"
   }
 }

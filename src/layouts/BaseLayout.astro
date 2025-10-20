@@ -1,7 +1,8 @@
 ---
-import "../scss/core.scss";
+import Menu from "../components/Menu.astro";
+import Nav from "../components/Nav.astro";
+import vendorLoaderUrl from "../js/vendor-loader.js?url";
 
-import Head from "../layouts/base/LayoutHead";
 interface Props {
   title: string;
   description: string;
@@ -22,8 +23,58 @@ const {
   data-assets-path="/assets/"
   data-template="vertical-menu-template-starter"
 >
-  <Head client:load description={description} title={title} />
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>
+      {title}
+    </title>
+
+    <meta name="description" content={description} />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../../assets/img/favicon/favicon.ico"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/assets/css/core.css" />
+
+    <script type="module" src={vendorLoaderUrl}></script>
+  </head>
   <body>
-    <slot />
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <Menu />
+
+        <div class="menu-mobile-toggler d-xl-none rounded-1">
+          <a
+            href="javascript:void(0);"
+            class="layout-menu-toggle menu-link text-large text-bg-secondary p-2 rounded-1"
+          >
+            <i class="ri ri-menu-line icon-base"></i>
+            <i class="ri ri-arrow-right-s-line icon-base"></i>
+          </a>
+        </div>
+
+        <div class="layout-page">
+          <Nav />
+          <slot />
+        </div>
+      </div>
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+
+      <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+      <div class="drag-target"></div>
+    </div>
   </body>
 </html>
