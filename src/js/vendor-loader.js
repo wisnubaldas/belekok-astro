@@ -3,6 +3,7 @@ import { Helpers } from './helpers.js';
 import './template-customizer.js';
 import './config.js';
 import { Menu } from './menu.js';
+Waves.init();
 
 const initMenu = () => {
   const menuElement = document.getElementById('layout-menu');
@@ -15,8 +16,7 @@ const initMenu = () => {
     currentMenu.destroy();
   }
 
-  const showDropdownOnHover =
-    window.templateCustomizer?.settings?.showDropdownOnHover ?? false;
+  const showDropdownOnHover = window.templateCustomizer?.settings?.showDropdownOnHover ?? false;
   const perfectScrollbarLib = window.PerfectScrollbar ?? null;
 
   window.Helpers.mainMenu = new Menu(

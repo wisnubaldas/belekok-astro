@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * Config
@@ -13,39 +13,37 @@
 window.config = {
   // global color variables for charts except chartjs
   colors: {
-    primary: window.Helpers.getCssVar("primary"),
-    secondary: window.Helpers.getCssVar("secondary"),
-    success: window.Helpers.getCssVar("success"),
-    info: window.Helpers.getCssVar("info"),
-    warning: window.Helpers.getCssVar("warning"),
-    danger: window.Helpers.getCssVar("danger"),
-    dark: window.Helpers.getCssVar("dark"),
-    black: window.Helpers.getCssVar("pure-black"),
-    white: window.Helpers.getCssVar("white"),
-    cardColor: window.Helpers.getCssVar("paper-bg"),
-    bodyBg: window.Helpers.getCssVar("body-bg"),
-    bodyColor: window.Helpers.getCssVar("body-color"),
-    headingColor: window.Helpers.getCssVar("heading-color"),
-    textMuted: window.Helpers.getCssVar("secondary-color"),
-    borderColor: window.Helpers.getCssVar("border-color"),
+    primary: window.Helpers.getCssVar('primary'),
+    secondary: window.Helpers.getCssVar('secondary'),
+    success: window.Helpers.getCssVar('success'),
+    info: window.Helpers.getCssVar('info'),
+    warning: window.Helpers.getCssVar('warning'),
+    danger: window.Helpers.getCssVar('danger'),
+    dark: window.Helpers.getCssVar('dark'),
+    black: window.Helpers.getCssVar('pure-black'),
+    white: window.Helpers.getCssVar('white'),
+    cardColor: window.Helpers.getCssVar('paper-bg'),
+    bodyBg: window.Helpers.getCssVar('body-bg'),
+    bodyColor: window.Helpers.getCssVar('body-color'),
+    headingColor: window.Helpers.getCssVar('heading-color'),
+    textMuted: window.Helpers.getCssVar('secondary-color'),
+    borderColor: window.Helpers.getCssVar('border-color'),
   },
   colors_label: {
-    primary: window.Helpers.getCssVar("primary-bg-subtle"),
-    secondary: window.Helpers.getCssVar("secondary-bg-subtle"),
-    success: window.Helpers.getCssVar("success-bg-subtle"),
-    info: window.Helpers.getCssVar("info-bg-subtle"),
-    warning: window.Helpers.getCssVar("warning-bg-subtle"),
-    danger: window.Helpers.getCssVar("danger-bg-subtle"),
-    dark: window.Helpers.getCssVar("dark-bg-subtle"),
+    primary: window.Helpers.getCssVar('primary-bg-subtle'),
+    secondary: window.Helpers.getCssVar('secondary-bg-subtle'),
+    success: window.Helpers.getCssVar('success-bg-subtle'),
+    info: window.Helpers.getCssVar('info-bg-subtle'),
+    warning: window.Helpers.getCssVar('warning-bg-subtle'),
+    danger: window.Helpers.getCssVar('danger-bg-subtle'),
+    dark: window.Helpers.getCssVar('dark-bg-subtle'),
   },
-  fontFamily: window.Helpers.getCssVar("font-family-base"),
+  fontFamily: window.Helpers.getCssVar('font-family-base'),
   enableMenuLocalStorage: true, // Enable menu state with local storage support
 };
 
-window.assetsPath =
-  document.documentElement.getAttribute("data-assets-path");
-window.templateName =
-  document.documentElement.getAttribute("data-template");
+window.assetsPath = document.documentElement.getAttribute('data-assets-path');
+window.templateName = document.documentElement.getAttribute('data-template');
 
 /**
  * TemplateCustomizer
@@ -72,14 +70,11 @@ window.templateName =
  * controls: [ 'color', 'theme', 'skins', 'semiDark', 'layoutCollapsed', 'layoutNavbarOptions', 'headerType', 'contentLayout', 'rtl' ] | Show/Hide customizer controls
  */
 
-if (typeof TemplateCustomizer !== "undefined") {
+if (typeof TemplateCustomizer !== 'undefined') {
   window.templateCustomizer = new TemplateCustomizer({
     displayCustomizer: true,
-    lang:
-      localStorage.getItem(
-        "templateCustomizer-" + templateName + "--Lang"
-      ) || "en", // Set default language here
-    // defaultPrimaryColor: '#D11BB4',
+    lang: localStorage.getItem('templateCustomizer-' + templateName + '--Lang') || 'en', // Set default language here
+    defaultPrimaryColor: '#336B76',
     // defaultSkin: 1,
     // defaultTheme: 'system',
     // defaultSemiDark: true,
@@ -91,15 +86,15 @@ if (typeof TemplateCustomizer !== "undefined") {
     // defaultFooterFixed: false,
     // defaultShowDropdownOnHover: false,
     controls: [
-      "color",
-      "theme",
-      "skins",
-      "semiDark",
-      "layoutCollapsed",
-      "layoutNavbarOptions",
-      "headerType",
-      "contentLayout",
-      "rtl",
+      'color',
+      'theme',
+      'skins',
+      'semiDark',
+      'layoutCollapsed',
+      'layoutNavbarOptions',
+      'headerType',
+      'contentLayout',
+      'rtl',
     ],
   });
 }

@@ -1,15 +1,15 @@
 ---
-import Menu from "../components/Menu.astro";
-import Nav from "../components/Nav.astro";
-import vendorLoaderUrl from "../js/vendor-loader.js?url";
+import Menu from '../components/Menu.astro';
+import Nav from '../components/Nav.astro';
+import vendorLoaderUrl from '../js/vendor-loader.js?url';
 
 interface Props {
   title: string;
   description: string;
 }
 const {
-  title = "Belekok Astro",
-  description = "Frontend SSR project powered by Astro and React.",
+  title = 'Belekok Astro',
+  description = 'Frontend SSR project powered by Astro and React.',
 } = Astro.props;
 ---
 
@@ -37,11 +37,7 @@ const {
     <meta name="description" content={description} />
 
     <!-- Favicon -->
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="../../assets/img/favicon/favicon.ico"
-    />
+    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

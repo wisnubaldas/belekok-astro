@@ -10,4 +10,16 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
+  vite: {
+    resolve: {
+      alias: {
+        '@components': '/src/components',
+        '@layouts': '/src/layouts',
+        '@js': '/src/js',
+        '@scss': '/src/scss',
+        '@vendor': '/src/vendor',
+        '@lib': '/src/lib',
+      },
+    },
+  },
 });

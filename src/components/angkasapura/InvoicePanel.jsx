@@ -1,0 +1,76 @@
+import { useEffect, useMemo, useState } from 'react';
+import { BlockUI } from 'ns-react-block-ui';
+import CreateInvoice from './CreateInvoice.jsx';
+import DeleteInvoice from './DeleteInvoice.jsx';
+import SearchInvoice from './SearchInvoice.jsx';
+import BlockingComponent from '../BlockingComponent.jsx';
+export default function InvoicePanel() {
+  const [view, setView] = useState('create'); // default tampilan pertama
+  const [blocking, setBlocking] = useState(false);
+
+  const loader = useMemo(() => <BlockingComponent message="Angkasapura Invoice data" />, []);
+
+  useEffect(() => {
+    if (!blocking || typeof window === 'undefined') {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => {
+      setBlocking(false);
+    }, 500);
+
+    return () => window.clearTimeout(timer);
+  }, [view, blocking]);
+
+  const handleChangeView = (nextView) => {
+    if (nextView === view) {
+      return;
+    }
+    setBlocking(true);
+    setView(nextView);
+  };
+
+  return (
+    <div className="col-auto">
+      <div className="mt-4">
+        <div className="btn-group mb-4" role="group" aria-label="Invoice menu">
+          <button
+            className={`btn btn-label-primary waves-effect ${view === 'create' ? 'active' : ''}`}
+            onClick={() => handleChangeView('create')}
+          >
+            <span className="menu-icon icon-base ri ri-file-add-line"></span>
+            Create Invoice
+          </button>
+
+          <button
+            className={`btn btn-label-primary waves-effect ${view === 'search' ? 'active' : ''}`}
+            onClick={() => handleChangeView('search')}
+          >
+            <span className="menu-icon icon-base ri ri-file-search-line"></span>
+            Search Invoice
+          </button>
+
+          <button
+            className={`btn btn-label-primary waves-effect ${view === 'delete' ? 'active' : ''}`}
+            onClick={() => handleChangeView('delete')}
+          >
+            <span className="menu-icon icon-base ri ri-file-close-line"></span>
+            Delete Invoice
+          </button>
+        </div>
+      </div>
+      <BlockUI
+        blocking={blocking}
+        loader={loader}
+        overlayStyle={{ backgroundColor: '#051226', opacity: 0.35 }}
+        cursor="wait"
+        className="h-100 w-100 d-block"
+      >
+        {/* Komponen tampil tergantung state */}
+        {view === 'create' && <CreateInvoice />}
+        {view === 'delete' && <DeleteInvoice />}
+        {view === 'search' && <SearchInvoice />}
+      </BlockUI>
+    </div>
+  );
+}
