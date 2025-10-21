@@ -2,6 +2,7 @@
 import Menu from '../components/Menu.astro';
 import Nav from '../components/Nav.astro';
 import vendorLoaderUrl from '../js/vendor-loader.js?url';
+import { ensureAuthenticated } from '@lib/auth/server-guard';
 
 interface Props {
   title: string;
@@ -11,6 +12,8 @@ const {
   title = 'Belekok Astro',
   description = 'Frontend SSR project powered by Astro and React.',
 } = Astro.props;
+
+ensureAuthenticated(Astro);
 ---
 
 <!doctype html>

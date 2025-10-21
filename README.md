@@ -58,3 +58,19 @@ Integrated React into the SSR build and wired up a default layout plus component
 ## Template
 
 [materialize](https://www.mediafire.com/file/k2dg8p2e97wez94/materialize-1390.rar/file)
+
+## Auth
+
+Menerapkan alur masuk yang didukung FastAPI ditambah perlindungan SSR.
+
+- [src/js/auth.js:1-123](src\js\auth.js) now provides cookie-based auth helpers (login, logout, getAccessToken) with localized error messaging that call the FastAPI /auth endpoints.
+- [src/lib/auth/config.ts:1-31](src\lib\auth\config.ts) centralizes auth configuration (API base URL, cookie name/max-age, redirect targets, shared error copy).
+- [src/pages/auth/login.astro:1-292](src\pages\auth\login.astro) updates the form to submit email/password, shows inline errors, and adds a module script that calls the new helpers and redirects on success.
+- [src/middleware.ts:1-105](src\middleware.ts) introduces an Astro middleware that skips static assets, verifies the JWT via /auth/verify, redirects unauthenticated users to /auth/login, and keeps logged-in users away from the login page.
+
+Tested with npm run build.
+
+Next steps:
+
+1. Set PUBLIC_AUTH_API_BASE_URL in your .env when the FastAPI service isn’t on http://127.0.0.1:8000.
+2. Confirm FastAPI CORS settings allow credentials from the Astro origin so the cookie survives cross-origin requests.
