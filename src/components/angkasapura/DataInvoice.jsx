@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import GridData from '@components/GridData';
 import InvoiceFilters from './InvoiceFilters.jsx';
-
+import { formatRupiah } from '@js/utils.js';
 // Kolom yang dikirim ke DataTables (server-side) termasuk renderer badge untuk invoice.
 const columns = [
   {
@@ -29,6 +29,50 @@ const columns = [
   { data: 'KOLI', title: 'Koli' },
   { data: 'BERAT', title: 'Berat' },
   { data: 'VOLUME', title: 'Volume' },
+  { data: 'JML_HARI', title: 'Jumlah Hari' },
+  {
+    data: 'CARGO_CHG',
+    title: 'Cargo Charger',
+    render: (data, type) => {
+      return data ? formatRupiah(data) : '0';
+    },
+  },
+  {
+    data: 'KADE',
+    title: 'Biaya Cade',
+    render: (data, type) => {
+      return data ? formatRupiah(data) : '0';
+    },
+  },
+  {
+    data: 'TOTAL_PENDAPATAN_TANPA_PPN',
+    title: 'Pendapatan Non PPN',
+    render: (data, type) => {
+      return data ? formatRupiah(data) : '0';
+    },
+  },
+  {
+    data: 'TOTAL_PENDAPATAN_DENGAN_PPN',
+    title: 'Pendapatan Include PPN',
+    render: (data, type) => {
+      return data ? formatRupiah(data) : '0';
+    },
+  },
+  {
+    data: 'PJT_HANDLING_FEE',
+    title: 'Penanganan PJT',
+    render: (data, type) => {
+      return data ? formatRupiah(data) : '0';
+    },
+  },
+  {
+    data: 'RUSH_HANDLING_FEE',
+    title: 'Penanganan Rush Handling',
+    render: (data, type) => {
+      return data ? formatRupiah(data) : '0';
+    },
+  },
+
 ];
 
 // Nilai dasar untuk filter form dan payload DataTables.
