@@ -42,7 +42,7 @@ export default function InvoicePanel() {
               onClick={() => handleChangeView('data-inv')}
             >
               <span className="menu-icon icon-base ri ri-file-add-line"></span>
-              Create Invoice
+              Grid Data Invoice
             </button>
 
             <button

@@ -149,3 +149,25 @@ DataTablesCore.Buttons.jszip(jszip);
 DataTablesCore.Buttons.pdfMake(pdfmake);
 DataTable.use(DataTablesCore);
 ```
+
+## ENV
+
+```bash
+# .env
+AUTH_JWT_SECRET=supersecretkey
+AUTH_JWT_ALGORITHM=HS256
+AUTH_JWT_EXPIRATION_MINUTES=60
+# Environment overrides for dev/prod live in .env.development and .env.production
+
+```
+
+```bash
+# .env.development
+# Development-only environment variables
+# Values prefixed with PUBLIC_ are exposed to client code.
+
+PUBLIC_BACKEND_PATH=http://localhost:8000
+PUBLIC_AUTH_API_BASE_URL=http://127.0.0.1:8000
+PUBLIC_SSE_KEY=92a936af44d2c94d919c0d0800f6617b008c4d1817a1981aeb0ecf3cad3373fa
+
+```
