@@ -1,11 +1,11 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import WelcomeBanner from "../components/WelcomeBanner.jsx";
+import BaseLayout from '@layouts/BaseLayout.astro';
+import WelcomeBanner from '@components/WelcomeBanner.jsx';
 ---
 
 <BaseLayout
-  title="Belekok Astro SSR"
-  description="Proyek Astro SSR dengan React terintegrasi."
+  title="MAU APP "
+  description="Aplikasi Manajemen Gudang logistik lini 1 bandara Soekarno Hatta"
 >
-  <WelcomeBanner client:load name="Belekok" />
+  <WelcomeBanner client:only name="Dashboard" />
 </BaseLayout>

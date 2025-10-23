@@ -58,6 +58,7 @@ Integrated React into the SSR build and wired up a default layout plus component
 ## Template
 
 [materialize](https://www.mediafire.com/file/k2dg8p2e97wez94/materialize-1390.rar/file)
+[metronic](https://drive.google.com/drive/folders/0BwbYBjaC3lAmV2R0MUpORTVlaXM?resourcekey=0-9YjRuZtzdAyXLhWa9IAciQ&usp=drive_link)
 
 ## Auth
 
@@ -74,3 +75,77 @@ Next steps:
 
 1. Set PUBLIC_AUTH_API_BASE_URL in your .env when the FastAPI service isn’t on http://127.0.0.1:8000.
 2. Confirm FastAPI CORS settings allow credentials from the Astro origin so the cookie survives cross-origin requests.
+
+## Fetch
+
+Added a reusable API client so every request automatically carries the bearer token:
+
+- [src/lib/api/client.ts](src\lib\api\client.ts) centralizes the backend base URL (resolved from PUBLIC_BACKEND_PATH with a 127.0.0.1 fallback) and exports apiClient helpers for get, post, put, patch, delete, plus the lower-level request.
+- Each call merges custom headers with defaults, attaches Authorization: Bearer <token> using getAccessToken() from [@js/auth.js](src\js\auth.js), sets Accept: application/json, stringifies non-FormData bodies, includes cookies by default, and turns non-2xx responses into typed Errors.
+- Supports params for query strings, token overrides, and raw: true when you need the raw Response.
+  Example usage:
+
+```ts
+import { apiClient } from '@lib/api/client';
+
+const invoices = await apiClient.get('/angkasapura/datatables', {
+  params: { page: 1 },
+});
+```
+
+On the server (where document isn’t available) the Authorization header is skipped unless you pass token explicitly. Update callers as needed to take advantage of the wrapper.
+
+## Datatables React
+
+```node
+npm install jszip
+npm install pdfmake
+npm install datatables.net-react
+npm install datatables.net-bs5
+npm install datatables.net-autofill-bs5
+npm install datatables.net-buttons-bs5
+npm install datatables.net-colreorder-bs5
+npm install datatables.net-columncontrol-bs5
+npm install datatables.net-datetime
+npm install datatables.net-fixedcolumns-bs5
+npm install datatables.net-fixedheader-bs5
+npm install datatables.net-keytable-bs5
+npm install datatables.net-responsive-bs5
+npm install datatables.net-rowgroup-bs5
+npm install datatables.net-rowreorder-bs5
+npm install datatables.net-scroller-bs5
+npm install datatables.net-searchbuilder-bs5
+npm install datatables.net-searchpanes-bs5
+npm install datatables.net-select-bs5
+npm install datatables.net-staterestore-bs5
+```
+
+```javascript
+import jszip from 'jszip';
+import pdfmake from 'pdfmake';
+import DataTable from 'datatables.net-react';
+import DataTablesCore from 'datatables.net-bs5';
+import 'datatables.net-autofill-bs5';
+import 'datatables.net-buttons-bs5';
+import 'datatables.net-buttons/js/buttons.colVis.mjs';
+import 'datatables.net-buttons/js/buttons.html5.mjs';
+import 'datatables.net-buttons/js/buttons.print.mjs';
+import 'datatables.net-colreorder-bs5';
+import 'datatables.net-columncontrol-bs5';
+import DateTime from 'datatables.net-datetime';
+import 'datatables.net-fixedcolumns-bs5';
+import 'datatables.net-fixedheader-bs5';
+import 'datatables.net-keytable-bs5';
+import 'datatables.net-responsive-bs5';
+import 'datatables.net-rowgroup-bs5';
+import 'datatables.net-rowreorder-bs5';
+import 'datatables.net-scroller-bs5';
+import 'datatables.net-searchbuilder-bs5';
+import 'datatables.net-searchpanes-bs5';
+import 'datatables.net-select-bs5';
+import 'datatables.net-staterestore-bs5';
+
+DataTablesCore.Buttons.jszip(jszip);
+DataTablesCore.Buttons.pdfMake(pdfmake);
+DataTable.use(DataTablesCore);
+```

@@ -1,9 +1,9 @@
 ---
-import Menu from '../components/Menu.astro';
-import Nav from '../components/Nav.astro';
-import vendorLoaderUrl from '../js/vendor-loader.js?url';
+import Menu from '@components/Menu.astro';
+import Nav from '@components/Nav.astro';
+import VendorLoader from '@components/VendorLoader.jsx';
 import { ensureAuthenticated } from '@lib/auth/server-guard';
-
+import favicon from '@vendor/favicon.ico?url';
 interface Props {
   title: string;
   description: string;
@@ -40,19 +40,18 @@ ensureAuthenticated(Astro);
     <meta name="description" content={description} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href={favicon} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="/assets/css/core.css" />
-
-    <script type="module" src={vendorLoaderUrl}></script>
   </head>
   <body>
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <Menu />
+        <VendorLoader client:load />
 
         <div class="menu-mobile-toggler d-xl-none rounded-1">
           <a
@@ -67,6 +66,35 @@ ensureAuthenticated(Astro);
         <div class="layout-page">
           <Nav />
           <slot />
+          <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl">
+              <div
+                class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column"
+              >
+                <div class="mb-2 mb-md-0">
+                  &#169; 2025, made with ❤️ by
+                  <a href="javascript::void(0)" class="footer-link fw-medium"> Wisnu Baldas </a>
+                </div>
+                <div class="d-none d-lg-inline-block">
+                  <a
+                    href="https://themeforest.net/user/pixinvent/portfolio"
+                    target="_blank"
+                    class="footer-link me-4"
+                  >
+                    More Themes
+                  </a>
+                  <a
+                    href="https://demos.pixinvent.com/materialize-html-admin-template/documentation/"
+                    target="_blank"
+                    class="footer-link me-4"
+                  >
+                    Documentation
+                  </a>
+                </div>
+              </div>
+            </div>
+          </footer>
+          <div class="content-backdrop fade"></div>
         </div>
       </div>
       <!-- Overlay -->

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { BlockUI } from 'ns-react-block-ui';
-import CreateInvoice from './CreateInvoice.jsx';
 import DeleteInvoice from './DeleteInvoice.jsx';
 import SearchInvoice from './SearchInvoice.jsx';
 import DataInvoice from './DataInvoice.jsx';
