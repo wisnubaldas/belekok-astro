@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { BlockUI } from 'ns-react-block-ui';
-import DeleteInvoice from './DeleteInvoice.jsx';
+import ReportInvoice from './ReportInvoice.jsx';
 import SearchInvoice from './SearchInvoice.jsx';
 import DataInvoice from './DataInvoice.jsx';
 import BlockingComponent from '../BlockingComponent.jsx';
@@ -54,11 +54,11 @@ export default function InvoicePanel() {
             </button>
 
             <button
-              className={`btn btn-label-primary waves-effect ${view === 'delete' ? 'active' : ''}`}
-              onClick={() => handleChangeView('delete')}
+              className={`btn btn-label-primary waves-effect ${view === 'report' ? 'active' : ''}`}
+              onClick={() => handleChangeView('report')}
             >
               <span className="menu-icon icon-base ri ri-file-close-line"></span>
-              Delete Invoice
+              Report Invoice
             </button>
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function InvoicePanel() {
       >
         {/* Komponen tampil tergantung state */}
         {view === 'data-inv' && <DataInvoice />}
-        {view === 'delete' && <DeleteInvoice />}
+        {view === 'report' && <ReportInvoice client:only />}
         {view === 'search' && <SearchInvoice />}
       </BlockUI>
     </>

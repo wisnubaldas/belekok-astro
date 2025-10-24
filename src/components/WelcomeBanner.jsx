@@ -70,7 +70,7 @@ export default function WelcomeBanner({ name = 'Astro' }) {
   };
 
   return (
-    <div className="container-xxl flex-grow-1 container-p-y">
+    <div className="container-xxl grow container-p-y">
       <div className={headerClasses}>
         <img
           src="/assets/img/pages/header-light.png"

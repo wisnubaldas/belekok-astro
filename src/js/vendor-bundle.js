@@ -6,6 +6,7 @@ import PerfectScrollbar from 'perfect-scrollbar';
 import Hammer from 'hammerjs';
 import Pickr from '@simonwep/pickr/dist/pickr.es5.min';
 import { autocomplete } from '@algolia/autocomplete-js';
+
 if (typeof window !== 'undefined') {
   window.$ = window.jQuery = $;
   window.bootstrap = bootstrap;

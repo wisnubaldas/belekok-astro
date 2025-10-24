@@ -21,7 +21,7 @@ const TABLE_COMPONENT_STYLES = `
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .table_component caption {
@@ -40,27 +40,10 @@ const TABLE_COMPONENT_STYLES = `
 }
 
 .table_component th {
-  background-color: #bcccca;
   color: #0a0a0a;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-}
-
-.table_component tr:nth-child(even) td {
-  background-color: #fbfbff;
-}
-
-.table_component tr:nth-child(odd) td {
-  background-color: #ffffff;
-}
-
-.dtr-control {
-  cursor: pointer;
-}
-
-.dt-search {
-  display: none !important;
 }
 `;
 
@@ -161,12 +144,11 @@ const GridData = forwardRef(
         if (!bootstrapLib) {
           try {
             const module = await import('bootstrap');
-            const candidate =
-              module?.Modal
-                ? module
-                : module?.default && module.default.Modal
-                ? module.default
-                : null;
+            const candidate = module?.Modal
+              ? module
+              : module?.default && module.default.Modal
+              ? module.default
+              : null;
 
             bootstrapLib = applyBootstrap(candidate);
           } catch (error) {
@@ -284,8 +266,8 @@ const GridData = forwardRef(
           let groupCount = 0;
 
           hiddenColumns.forEach((col, index) => {
-            headerRow += `<th>${col.title}</th>`;
-            dataRow += `<td>${col.data ?? ''}</td>`;
+            headerRow += `<th class="bg-label-primary">${col.title}</th>`;
+            dataRow += `<td class="bg-transparent">${col.data ?? ''}</td>`;
             groupCount += 1;
 
             const isGroupEnd = groupCount === 5 || index === hiddenColumns.length - 1;
@@ -358,21 +340,19 @@ const GridData = forwardRef(
           return;
         }
 
-        datatable
-          .rows({ page: 'current' })
-          .every(function () {
-            if (this.index() === row.index()) {
-              return;
-            }
+        datatable.rows({ page: 'current' }).every(function () {
+          if (this.index() === row.index()) {
+            return;
+          }
 
-            if (this.child && this.child.isShown && this.child.isShown()) {
-              this.child(false);
-              const node = this.node();
-              if (node && node.classList) {
-                node.classList.remove('parent');
-              }
+          if (this.child && this.child.isShown && this.child.isShown()) {
+            this.child(false);
+            const node = this.node();
+            if (node && node.classList) {
+              node.classList.remove('parent');
             }
-          });
+          }
+        });
       };
 
       api.on('responsive-display', handleResponsiveDisplay);
