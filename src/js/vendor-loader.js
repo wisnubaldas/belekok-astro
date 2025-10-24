@@ -1,28 +1,29 @@
-import './vendor-bundle.js';
-import { Helpers } from './helpers.js';
-import './template-customizer.js';
-import './config.js';
-import { Menu } from './menu.js';
+import "./vendor-bundle.js";
+import { Helpers } from "./helpers.js";
+import "./template-customizer.js";
+import "./config.js";
+import { Menu } from "./menu.js";
 Waves.init();
 
 const initMenu = () => {
-  const menuElement = document.getElementById('layout-menu');
-  if (!menuElement || typeof window === 'undefined') {
+  const menuElement = document.getElementById("layout-menu");
+  if (!menuElement || typeof window === "undefined") {
     return;
   }
 
   const currentMenu = window.Helpers?.mainMenu;
-  if (currentMenu && typeof currentMenu.destroy === 'function') {
+  if (currentMenu && typeof currentMenu.destroy === "function") {
     currentMenu.destroy();
   }
 
-  const showDropdownOnHover = window.templateCustomizer?.settings?.showDropdownOnHover ?? false;
+  const showDropdownOnHover =
+    window.templateCustomizer?.settings?.showDropdownOnHover ?? false;
   const perfectScrollbarLib = window.PerfectScrollbar ?? null;
 
   window.Helpers.mainMenu = new Menu(
     menuElement,
     {
-      orientation: 'vertical',
+      orientation: "vertical",
       closeChildren: true,
       showDropdownOnHover,
     },
@@ -37,22 +38,22 @@ const initMenu = () => {
 };
 
 const bindMenuToggles = () => {
-  const toggles = document.querySelectorAll('.layout-menu-toggle');
+  const toggles = document.querySelectorAll(".layout-menu-toggle");
 
   toggles.forEach((toggle) => {
-    if (toggle.dataset.menuToggleBound === 'true') return;
+    if (toggle.dataset.menuToggleBound === "true") return;
 
-    toggle.addEventListener('click', (event) => {
+    toggle.addEventListener("click", (event) => {
       event.preventDefault();
       Helpers.toggleCollapsed();
     });
 
-    toggle.dataset.menuToggleBound = 'true';
+    toggle.dataset.menuToggleBound = "true";
   });
 };
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initMenu, { once: true });
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initMenu, { once: true });
 } else {
   initMenu();
 }
