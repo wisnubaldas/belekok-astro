@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import { apiClient } from '@lib/api/client';
-import { formatDateTime } from '@js/utils';
-
+import { formatDateTime, showToast } from '@js/utils';
 
 const extractResponseSummary = (payload) => {
   if (!payload || typeof payload !== 'object') {
@@ -54,10 +53,7 @@ export default function SearchInvoice() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
 
-  const latestResponse = useMemo(
-    () => (responses.length > 0 ? responses[0] : null),
-    [responses]
-  );
+  const latestResponse = useMemo(() => (responses.length > 0 ? responses[0] : null), [responses]);
   const latestSummary = useMemo(
     () => extractResponseSummary(latestResponse?.response),
     [latestResponse]
@@ -69,6 +65,11 @@ export default function SearchInvoice() {
     const trimmedInvoice = invoiceNumber.trim();
 
     if (!trimmedInvoice) {
+      showToast({
+        type: 'danger',
+        message: 'Mohon masukkan nomor invoice.',
+        title: 'Search Invoice',
+      });
       setError('Mohon masukkan nomor invoice.');
       setResponses([]);
       setHasSearched(false);
@@ -86,7 +87,18 @@ export default function SearchInvoice() {
       );
       setResponses(Array.isArray(data) ? data : []);
     } catch (err) {
-      const message = err?.message ?? 'Terjadi kesalahan saat mengambil data.';
+      const message =
+        err?.message ??
+        showToast({
+          type: 'danger',
+          message: 'Terjadi kesalahan saat mengambil data.',
+          title: 'Search Invoice',
+        });
+      showToast({
+        type: 'danger',
+        message: message,
+        title: 'Search Invoice',
+      });
       setError(message);
       setResponses([]);
     } finally {
@@ -104,7 +116,6 @@ export default function SearchInvoice() {
       </div>
       <div className="col-md-12 col-xl-12">
         <div className="misc-wrapper">
-
           <div className="card border-0 shadow-sm">
             <div className="card-body">
               <form onSubmit={handleSubmit} className="mb-4">
@@ -135,7 +146,11 @@ export default function SearchInvoice() {
               </form>
               {isLoading ? (
                 <div className="d-flex flex-column align-items-center justify-content-center py-5 text-muted">
-                  <div className="spinner-border text-primary mb-3" role="status" aria-hidden="true"></div>
+                  <div
+                    className="spinner-border text-primary mb-3"
+                    role="status"
+                    aria-hidden="true"
+                  ></div>
                   <span>Mengambil data response invoice...</span>
                 </div>
               ) : error ? (
@@ -208,7 +223,9 @@ export default function SearchInvoice() {
                                 className="timeline-item timeline-item-transparent border-dashed border-start border-info"
                               >
                                 <span
-                                  className={`timeline-point timeline-point-${getTimelinePointVariant(item.status)}`}
+                                  className={`timeline-point timeline-point-${getTimelinePointVariant(
+                                    item.status
+                                  )}`}
                                 ></span>
                                 <div className="timeline-event">
                                   <div className="timeline-header mb-1">
@@ -251,7 +268,6 @@ export default function SearchInvoice() {
                                       {item.id ?? '-'}
                                     </div>
                                   </div>
-
                                 </div>
                               </li>
                             );

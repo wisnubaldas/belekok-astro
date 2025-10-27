@@ -1,13 +1,13 @@
 const formatRupiah = (angka) => {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
     minimumFractionDigits: 0,
   }).format(angka);
 };
 const formatDateTime = (value) => {
   if (!value) {
-    return "-";
+    return '-';
   }
 
   const date = new Date(value);
@@ -15,6 +15,9 @@ const formatDateTime = (value) => {
     return value;
   }
 
-  return date.toLocaleString("id-ID");
+  return date.toLocaleString('id-ID');
 };
-export { formatRupiah, formatDateTime };
+const showToast = (data) => {
+  window.dispatchEvent(new CustomEvent('toast', { detail: data }));
+};
+export { formatRupiah, formatDateTime, showToast };

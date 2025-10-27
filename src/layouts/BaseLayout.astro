@@ -1,16 +1,17 @@
 ---
-import Menu from "@components/Menu.astro";
-import Nav from "@components/Nav.astro";
-import VendorLoader from "@components/VendorLoader.jsx";
-import { ensureAuthenticated } from "@lib/auth/server-guard";
-import favicon from "@vendor/favicon.ico?url";
+import Menu from '@components/Menu.astro';
+import Nav from '@components/Nav.astro';
+import VendorLoader from '@components/VendorLoader.jsx';
+import { ensureAuthenticated } from '@lib/auth/server-guard';
+import favicon from '@vendor/favicon.ico?url';
+
 interface Props {
   title: string;
   description: string;
 }
 const {
-  title = "Belekok Astro",
-  description = "Frontend SSR project powered by Astro and React.",
+  title = 'Belekok Astro',
+  description = 'Frontend SSR project powered by Astro and React.',
 } = Astro.props;
 
 ensureAuthenticated(Astro);
@@ -73,9 +74,7 @@ ensureAuthenticated(Astro);
               >
                 <div class="mb-2 mb-md-0">
                   &#169; 2025, made with ❤️ by
-                  <a href="javascript::void(0)" class="footer-link fw-medium">
-                    Wisnu Baldas
-                  </a>
+                  <a href="javascript::void(0)" class="footer-link fw-medium"> Wisnu Baldas </a>
                 </div>
                 <div class="d-none d-lg-inline-block">
                   <a
