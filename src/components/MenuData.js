@@ -19,20 +19,17 @@ export const menuData = [
         url: prefix.angkasapura('data-invoice'),
       },
       {
-        name: 'Send Invoice',
-        url: prefix.angkasapura('invoice/send-invoice'),
-      },
-      {
         name: 'Void Invoice',
         url: prefix.angkasapura('void-invoice'),
       },
       {
-        name: 'Status Response',
-        url: prefix.angkasapura('status-response'),
+        name: 'Send Invoice',
+        url: 'javascript::void(0)', // prefix.angkasapura('invoice/send-invoice'),
       },
+
       {
-        name: 'Invoice Tidak Lengkap',
-        url: prefix.angkasapura('failed-invoice'),
+        name: 'Status Response',
+        url: 'javascript::void(0)', // prefix.angkasapura('status-response'),
       },
     ],
   },

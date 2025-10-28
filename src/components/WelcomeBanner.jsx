@@ -4,8 +4,8 @@ import { menuData } from '@components/MenuData.js';
 import { apiClient } from '@lib/api/client';
 
 const VOID_URL = 'javascript:void(0)';
-const dataCard = await apiClient.get('/hubnet/dashboard-card');
-console.log('dataCard', dataCard);
+// const dataCard = await apiClient.get('/hubnet/dashboard-card');
+// console.log('dataCard', dataCard);
 // Builds a flat option list from the nested menu structure.
 const buildSelectOptions = (items, trail = []) =>
   items.reduce((acc, item) => {

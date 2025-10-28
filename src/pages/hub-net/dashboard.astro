@@ -1,10 +1,7 @@
 ---
 import AdminLayout from '@layouts/BaseLayout.astro';
+import DashboardHubnet from '@components/hubnet/Dashboard';
 ---
-
-<AdminLayout title="Page Admin" , description="Admin dashboard page">
-  <div class="row mt-4">
-    <h1>Hubnet Dashboard</h1>
-    <p>Welcome to the admin dashboard. Here you can manage your site settings and content.</p>
-  </div>
+<AdminLayout title="HUBNET | Dashboard" , description="Dashboard data yang terkirim ke HUBNET">
+  <DashboardHubnet client:load />
 </AdminLayout>

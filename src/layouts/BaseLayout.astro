@@ -4,15 +4,14 @@ import Nav from '@components/Nav.astro';
 import VendorLoader from '@components/VendorLoader.jsx';
 import { ensureAuthenticated } from '@lib/auth/server-guard';
 import favicon from '@vendor/favicon.ico?url';
+import { ToasterProvider } from '@components/ToasterProvider.jsx';
 
 interface Props {
   title: string;
   description: string;
 }
-const {
-  title = 'Belekok Astro',
-  description = 'Frontend SSR project powered by Astro and React.',
-} = Astro.props;
+const { title = 'MAU APP', description = 'Frontend SSR project powered by Astro and React.' } =
+  Astro.props;
 
 ensureAuthenticated(Astro);
 ---
@@ -49,60 +48,62 @@ ensureAuthenticated(Astro);
     <link rel="stylesheet" href="/assets/css/core.css" />
   </head>
   <body>
-    <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-        <Menu />
-        <VendorLoader client:load />
+    <ToasterProvider client:load>
+      <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+          <Menu />
+          <VendorLoader client:load />
 
-        <div class="menu-mobile-toggler d-xl-none rounded-1">
-          <a
-            href="javascript:void(0);"
-            class="layout-menu-toggle menu-link text-large text-bg-secondary p-2 rounded-1"
-          >
-            <i class="ri ri-menu-line icon-base"></i>
-            <i class="ri ri-arrow-right-s-line icon-base"></i>
-          </a>
-        </div>
+          <div class="menu-mobile-toggler d-xl-none rounded-1">
+            <a
+              href="javascript:void(0);"
+              class="layout-menu-toggle menu-link text-large text-bg-secondary p-2 rounded-1"
+            >
+              <i class="ri ri-menu-line icon-base"></i>
+              <i class="ri ri-arrow-right-s-line icon-base"></i>
+            </a>
+          </div>
 
-        <div class="layout-page">
-          <Nav />
-          <slot />
-          <footer class="content-footer footer bg-footer-theme">
-            <div class="container-xxl">
-              <div
-                class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column"
-              >
-                <div class="mb-2 mb-md-0">
-                  &#169; 2025, made with ❤️ by
-                  <a href="javascript::void(0)" class="footer-link fw-medium"> Wisnu Baldas </a>
-                </div>
-                <div class="d-none d-lg-inline-block">
-                  <a
-                    href="https://themeforest.net/user/pixinvent/portfolio"
-                    target="_blank"
-                    class="footer-link me-4"
-                  >
-                    More Themes
-                  </a>
-                  <a
-                    href="https://demos.pixinvent.com/materialize-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link me-4"
-                  >
-                    Documentation
-                  </a>
+          <div class="layout-page">
+            <Nav />
+            <slot />
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl">
+                <div
+                  class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column"
+                >
+                  <div class="mb-2 mb-md-0">
+                    &#169; 2025, made with ❤️ by
+                    <a href="javascript::void(0)" class="footer-link fw-medium"> Wisnu Baldas </a>
+                  </div>
+                  <div class="d-none d-lg-inline-block">
+                    <a
+                      href="https://themeforest.net/user/pixinvent/portfolio"
+                      target="_blank"
+                      class="footer-link me-4"
+                    >
+                      More Themes
+                    </a>
+                    <a
+                      href="https://demos.pixinvent.com/materialize-html-admin-template/documentation/"
+                      target="_blank"
+                      class="footer-link me-4"
+                    >
+                      Documentation
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </footer>
-          <div class="content-backdrop fade"></div>
+            </footer>
+            <div class="content-backdrop fade"></div>
+          </div>
         </div>
-      </div>
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
 
-      <!-- Drag Target Area To SlideIn Menu On Small Screens -->
-      <div class="drag-target"></div>
-    </div>
+        <!-- Drag Target Area To SlideIn Menu On Small Screens -->
+        <div class="drag-target"></div>
+      </div>
+    </ToasterProvider>
   </body>
 </html>
